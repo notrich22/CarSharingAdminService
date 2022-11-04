@@ -1,0 +1,52 @@
+﻿@page
+@model CarSharingAdminService.Pages.CarSharingAdminPageModel
+@{
+
+}
+<div class="btn-group" role="group">
+	<input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="rides" autocomplete="off" asp-for="Checked">
+	<label class="btn btn-outline-primary" for="btnradio1">Rides</label>
+
+	<input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="users" autocomplete="off" asp-for="Checked">
+	<label class="btn btn-outline-primary" for="btnradio2">Users</label>
+
+	<input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="cars" autocomplete="off" asp-for="Checked">
+	<label class="btn btn-outline-primary" for="btnradio3">Cars</label>
+
+</div>
+@if(Model.Checked == "users"){
+	<table class="table mt-4">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Name</th>
+				<th scope="col">Date of Birth</th>
+				<th scope="col">Driving experience</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model.users != null)
+			{
+				@foreach (var user in Model.users)
+				{
+					<tr>
+						<td>@user.Id</td>
+						<td>@user.UserName</td>
+						<td>@user.DateOfBirth</td>
+						<td>@user.DrivingExperienceInYears</td>
+						<td>
+							<form method="post" asp-page-handler="Delete" asp-route-id="@user.Id">
+								<button class="btn btn-danger">Delete</button>
+							</form>
+						</td>
+						<td>
+							<form method="post" asp-page-handler="View" asp-route-id="@user.Id">
+								<button class="btn btn-warning">Update</button>
+							</form>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+}
