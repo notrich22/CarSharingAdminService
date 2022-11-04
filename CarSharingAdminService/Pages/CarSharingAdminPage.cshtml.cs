@@ -13,10 +13,13 @@ namespace CarSharingAdminService.Pages
         public string Checked { get; set; }
         public void OnGet()
         {
-            //users = dataProvider.GetAllUsers();
+            users = dataProvider.GetAllUsers();
             rides = dataProvider.GetAllRides();
-            //cars = dataProvider.GetAllCars();
-            Checked = "users";
+            cars = dataProvider.GetAllCars();
+        }
+        public void OnPostDelete()
+        {
+
         }
     }
 }

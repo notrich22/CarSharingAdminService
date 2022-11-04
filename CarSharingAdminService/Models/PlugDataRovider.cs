@@ -53,8 +53,8 @@
                 new Ride()
                 {
                     Id = 1,
-                    User=Users[1],
-                    Car=Cars[1],
+                    User=Users[0],
+                    Car=Cars[0],
                     DistanceInKilometers=20,
                     RideStart= new DateTime(2022, 8, 26, 23, 13, 50),
                     RideEnd= new DateTime(2022, 8, 27, 1, 13, 50)
@@ -62,8 +62,8 @@
                 new Ride()
                 {
                     Id = 2,
-                    User=Users[2],
-                    Car=Cars[2],
+                    User=Users[1],
+                    Car=Cars[1],
                     DistanceInKilometers=20,
                     RideStart= new DateTime(2022, 8, 26, 23, 13, 50),
                     RideEnd= new DateTime(2022, 8, 27, 1, 13, 50)

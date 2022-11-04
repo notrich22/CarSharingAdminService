@@ -4,18 +4,20 @@
 
 }
 <div class="btn-group" role="group">
-	<input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="rides" autocomplete="off" asp-for="Checked">
-	<label class="btn btn-outline-primary" for="btnradio1">Rides</label>
+	<form>
+		<input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="rides" autocomplete="off" asp-for="Checked">
+		<label class="btn btn-outline-primary" for="btnradio1">Rides</label>
 
-	<input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="users" autocomplete="off" asp-for="Checked">
-	<label class="btn btn-outline-primary" for="btnradio2">Users</label>
+		<input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="users" autocomplete="off" asp-for="Checked">
+		<label class="btn btn-outline-primary" for="btnradio2">Users</label>
 
-	<input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="cars" autocomplete="off" asp-for="Checked">
-	<label class="btn btn-outline-primary" for="btnradio3">Cars</label>
-
+		<input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="cars" autocomplete="off" asp-for="Checked">
+		<label class="btn btn-outline-primary" for="btnradio3">Cars</label>
+		<button class="btn btn-primary">Update</button>
+	</form>
 </div>
 @if(Model.Checked == "users"){
-	<table class="table mt-4">
+	<table class="table mt-4 table-hover" style="text-align: center;">
 		<thead>
 			<tr>
 				<th scope="col">Id</th>
@@ -32,16 +34,16 @@
 					<tr>
 						<td>@user.Id</td>
 						<td>@user.UserName</td>
-						<td>@user.DateOfBirth</td>
+						<td>@user.DateOfBirth.ToShortDateString()</td>
 						<td>@user.DrivingExperienceInYears</td>
-						<td>
-							<form method="post" asp-page-handler="Delete" asp-route-id="@user.Id">
-								<button class="btn btn-danger">Delete</button>
-							</form>
-						</td>
 						<td>
 							<form method="post" asp-page-handler="View" asp-route-id="@user.Id">
 								<button class="btn btn-warning">Update</button>
+							</form>
+						</td>
+						<td>
+							<form method="post" asp-page-handler="Delete" asp-route-id="@user.Id">
+								<button class="btn btn-danger">Delete</button>
 							</form>
 						</td>
 					</tr>
@@ -50,3 +52,5 @@
 		</tbody>
 	</table>
 }
+@if(Model.Checked == "rides"){}
+@if(Model.Checked == "cars"){}
