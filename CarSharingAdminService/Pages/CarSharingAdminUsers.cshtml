@@ -1,0 +1,90 @@
+﻿@page
+@model CarSharingAdminService.Pages.CarSharingAdminUsersModel
+@{
+
+}
+<div class="btn-group" role="group" aria-label="Basic example">
+	<form>
+		<a asp-page="/CarSharingAdminRides"><button type="button" class="btn btn-primary">Rides</button></a>
+		<button type="button" class="btn btn-primary active ">Users</button>
+		<a asp-page="/CarSharingAdminCars"><button type="button" class="btn btn-primary">Cars</button></a>
+	</form>
+</div>
+@if (Model.newUser is null)
+{
+	<form method="post" class="card p-3">
+		<div class="row">
+			<div asp-validation-summary="All"></div>
+		</div>
+		<div class="form-group mb-0 align-middle">
+
+			<label asp-for="newUser.UserName">Name</label>
+			<input type="text" asp-for="newUser.UserName" class="mr-5">
+
+			<label asp-for="newUser.DateOfBirth"></label>
+			<input type="date" asp-for="newUser.DateOfBirth" class="mr-5" />
+
+			<label asp-for="newUser.DrivingExperienceInYears"></label>
+			<input type="number" asp-for="newUser.DrivingExperienceInYears" class="mr-5" />
+
+			<button class="btn btn-primary">Add</button>
+		</div>
+	</form>
+}
+else
+{
+	<form method="post" class="card p-3" asp-page-handler="Edit">
+		<div class="row">
+			<div asp-validation-summary="All"></div>
+		</div>
+		<div class="form-group mb-0 align-middle">
+			<input type="number" asp-for="newUser.Id" hidden>
+
+			<label asp-for="newUser.UserName">Name</label>
+			<input type="text" asp-for="newUser.UserName" class="mr-5">
+
+			<label asp-for="newUser.DateOfBirth"></label>
+			<input type="date" asp-for="newUser.DateOfBirth" class="mr-5" />
+
+			<label asp-for="newUser.DrivingExperienceInYears"></label>
+			<input type="number" asp-for="newUser.DrivingExperienceInYears" class="mr-5" />
+
+
+			<button class="btn btn-success">Save</button>
+		</div>
+	</form>
+}
+<table class="table mt-4 table-hover" style="text-align: center;">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Name</th>
+				<th scope="col">Date of Birth</th>
+				<th scope="col">Driving experience</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model.users != null)
+			{
+				@foreach (var user in Model.users)
+				{
+					<tr>
+						<td>@user.Id</td>
+						<td>@user.UserName</td>
+						<td>@user.DateOfBirth.ToShortDateString()</td>
+						<td>@user.DrivingExperienceInYears</td>
+						<td>
+							<form method="post" asp-page-handler="View" asp-route-id="@user.Id">
+								<button class="btn btn-warning">Update</button>
+							</form>
+						</td>
+						<td>
+							<form method="post" asp-page-handler="Delete" asp-route-id="@user.Id">
+								<button class="btn btn-danger">Delete</button>
+							</form>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+</table>

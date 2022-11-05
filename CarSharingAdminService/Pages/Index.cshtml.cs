@@ -14,7 +14,7 @@ namespace CarSharingAdminService.Pages
 
         public IActionResult OnGet()
         {
-            return RedirectToPage("CarSharingAdminPage");
+            return RedirectToPage("CarSharingAdminUsers");
         }
     }
 }

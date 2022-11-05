@@ -54,7 +54,7 @@
                 {
                     Id = 1,
                     User=Users[0],
-                    Car=Cars[0],
+                    Car=Cars[1],
                     DistanceInKilometers=20,
                     RideStart= new DateTime(2022, 8, 26, 23, 13, 50),
                     RideEnd= new DateTime(2022, 8, 27, 1, 13, 50)
@@ -80,7 +80,7 @@
         }
 
         public Car GetCar(int id){
-            return Cars[id];
+            return Cars.First(obj => obj.Id == id);
         }
 
         public void UpdateCar(Car car){
@@ -105,7 +105,7 @@
         }
 
         public User GetUser(int id){
-            return Users[id];
+            return Users.First(obj => obj.Id == id);
         }
 
         public void UpdateUser(User user){
@@ -130,7 +130,7 @@
         }
 
         public Ride GetRide(int id){
-            return Rides[id];
+            return Rides.First(obj => obj.Id == id);
         }
 
         public void UpdateRide(Ride ride){

@@ -1,0 +1,89 @@
+﻿@page
+@model CarSharingAdminService.Pages.CarSharingAdminCarsModel
+@{
+}
+<div class="btn-group" role="group" aria-label="Basic example">
+	<form>
+		<a asp-page="/CarSharingAdminRides"><button type="button" class="btn btn-primary">Rides</button></a>
+		<a asp-page="/CarSharingAdminUsers"><button type="button" class="btn btn-primary" asp-page="/CarSharingAdminUsers">Users</button></a>
+		<button type="button" class="btn btn-primary active">Cars</button>
+	</form>
+</div>
+@if (Model.newCar is null)
+{
+	<form method="post" class="card p-3">
+		<div class="row">
+			<div asp-validation-summary="All"></div>
+		</div>
+		<div class="form-group mb-0 align-middle">
+
+			<label asp-for="newCar.Brand">Brand</label>
+			<input type="text" asp-for="newCar.Brand" class="mr-5">
+
+			<label asp-for="newCar.Model"></label>
+			<input type="text" asp-for="newCar.Model" class="mr-5" />
+
+			<label asp-for="newCar.OdometerInKilometers"></label>
+			<input type="number" asp-for="newCar.OdometerInKilometers" class="mr-5" />
+
+			<button class="btn btn-primary">Add</button>
+		</div>
+	</form>
+}
+else
+{
+	<form method="post" class="card p-3" asp-page-handler="Edit">
+		<div class="row">
+			<div asp-validation-summary="All"></div>
+		</div>
+		<div class="form-group mb-0 align-middle">
+			<input type="number" asp-for="newCar.Id" hidden>
+
+			<label asp-for="newCar.Brand">Brand</label>
+			<input type="text" asp-for="newCar.Brand" class="mr-5">
+
+			<label asp-for="newCar.Model"></label>
+			<input type="text" asp-for="newCar.Model" class="mr-5" />
+
+			<label asp-for="newCar.OdometerInKilometers"></label>
+			<input type="number" asp-for="newCar.OdometerInKilometers" class="mr-5" />
+
+
+			<button class="btn btn-success">Save</button>
+		</div>
+	</form>
+}
+<table class="table mt-4 table-hover" style="text-align: center;">
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">Brand</th>
+			<th scope="col">Model</th>
+			<th scope="col">Odometer</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.cars != null)
+		{
+			@foreach (var car in Model.cars)
+			{
+				<tr>
+					<td>@car.Id</td>
+					<td>@car.Brand</td>
+					<td>@car.Model</td>
+					<td>@car.OdometerInKilometers</td>
+					<td>
+						<form method="post" asp-page-handler="View" asp-route-id="@car.Id">
+							<button class="btn btn-warning">Update</button>
+						</form>
+					</td>
+					<td>
+						<form method="post" asp-page-handler="Delete" asp-route-id="@car.Id">
+							<button class="btn btn-danger">Delete</button>
+						</form>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

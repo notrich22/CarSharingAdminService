@@ -1,0 +1,106 @@
+﻿@page
+@model CarSharingAdminService.Pages.CarSharingAdminRidesModel
+@{
+}
+<div class="btn-group" role="group" aria-label="Basic example">
+	<form>
+		<button type="button" class="btn btn-primary active">Rides</button>
+		<a asp-page="/CarSharingAdminUsers"><button type="button" class="btn btn-primary ">Users</button></a>
+		<a asp-page="/CarSharingAdminCars"><button type="button" class="btn btn-primary">Cars</button></a>
+	</form>
+</div>
+@if (Model.newRide is null)
+{
+	<form method="post" class="card p-3">
+		<div class="row">
+			<div asp-validation-summary="All"></div>
+		</div>
+		<div class="form-group mb-0 align-middle">
+
+			<label asp-for="newUserId">User ID</label>
+			<input type="number" asp-for="newUserId" class="mr-5">
+
+			<label asp-for="newCarId">Car ID</label>
+			<input type="number" asp-for="newCarId" class="mr-5" />
+
+			<label asp-for="newRide.RideStart">Time start</label>
+			<input type="date" asp-for="newRide.RideStart" class="mr-5" />
+
+			<label asp-for="newRide.RideEnd">Time end</label>
+			<input type="date" asp-for="newRide.RideEnd" class="mr-5" />
+
+			<label asp-for="newRide.DistanceInKilometers">Distance</label>
+			<input type="number" asp-for="newRide.DistanceInKilometers" class="mr-5" />
+
+			<button class="btn btn-primary">Add</button>
+		</div>
+	</form>
+}
+else
+{
+	<form method="post" class="card p-3" asp-page-handler="Edit">
+		<div class="row">
+			<div asp-validation-summary="All"></div>
+		</div>
+		<div class="form-group mb-0 align-middle">
+			<input type="number" asp-for="newRide.Id" hidden>
+
+			<label asp-for="newUserId">User ID</label>
+			<input type="number" asp-for="newUserId" class="mr-5">
+
+			<label asp-for="newCarId">Car ID</label>
+			<input type="number" asp-for="newCarId" class="mr-5" />
+
+			<label asp-for="newRide.RideStart">Time start</label>
+			<input type="date" asp-for="newRide.RideStart" class="mr-5" />
+			
+			<label asp-for="newRide.RideEnd">Time end</label>
+			<input type="date" asp-for="newRide.RideEnd" class="mr-5" />
+
+			<label asp-for="newRide.DistanceInKilometers">Distance</label>
+			<input type="number" asp-for="newRide.DistanceInKilometers" class="mr-5" />
+
+
+
+			<button class="btn btn-success">Save</button>
+		</div>
+	</form>
+}
+<table class="table mt-4 table-hover" style="text-align: center;">
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">User</th>
+			<th scope="col">Car</th>
+			<th scope="col">Ride start</th>
+			<th scope="col">Ride end</th>
+			<th scope="col">Distance</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.rides != null)
+		{
+			@foreach (var ride in Model.rides)
+			{
+				<tr>
+					<td>@ride.Id</td>
+					<td>@ride.User</td>
+					<td>@ride.Car</td>
+					<td>@ride.RideStart</td>
+					<td>@ride.RideEnd</td>
+					<td>@ride.DistanceInKilometers</td>
+					<td>
+						<form method="post" asp-page-handler="View" asp-route-id="@ride.Id">
+							<button class="btn btn-warning">Update</button>
+						</form>
+					</td>
+					<td>
+						<form method="post" asp-page-handler="Delete" asp-route-id="@ride.Id">
+							<button class="btn btn-danger">Delete</button>
+						</form>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
