@@ -3,37 +3,37 @@
     public interface IDataProvider
     {
         //Cars CRUD
-        void CreateCar(Car car);
+        Task CreateCarAsync(Car car);
 
-        List<Car> GetAllCars();
+        Task<List<Car>> GetAllCarsAsync();
 
-        Car GetCar(int id);
+        Task<Car> GetCarAsync(int id);
 
-        void UpdateCar(Car car);
+        Task UpdateCarAsync(Car car);
 
-        void DeleteCar(int id);
+        Task DeleteCarAsync(int id);
 
         //Users CRUD
-        void CreateUser(User user);
+        Task CreateUserAsync(User user);
 
-        List<User> GetAllUsers();
+        Task<List<User>> GetAllUsersAsync();
 
-        User GetUser(int id);
+        Task<User> GetUserAsync(int id);
 
-        void UpdateUser(User user);
+        Task UpdateUserAsync(User user);
 
-        void DeleteUser(int id);
+        Task DeleteUserAsync(int id);
 
         //Rides CRUD
-        void CreateRide(Ride application);
+        Task CreateRideAsync(Ride application);
 
-        List<Ride> GetAllRides();
+        Task<List<Ride>> GetAllRidesAsync();
 
-        Ride GetRide(int id);
+        Task<Ride> GetRideAsync(int id);
 
-        void UpdateRide(Ride application);
+        Task UpdateRideAsync(Ride application);
 
-        void DeleteRide(int id);
+        Task DeleteRideAsync(int id);
 
     }
 }

@@ -23,11 +23,8 @@
 			<label asp-for="newCarId">Car ID</label>
 			<input type="number" asp-for="newCarId" class="mr-5" />
 
-			<label asp-for="newRide.RideStart">Time start</label>
-			<input type="date" asp-for="newRide.RideStart" class="mr-5" />
-
-			<label asp-for="newRide.RideEnd">Time end</label>
-			<input type="date" asp-for="newRide.RideEnd" class="mr-5" />
+			<label asp-for="newRide.TimeInHours">Time start</label>
+			<input type="number" asp-for="newRide.TimeInHours" class="mr-5" />
 
 			<label asp-for="newRide.DistanceInKilometers">Distance</label>
 			<input type="number" asp-for="newRide.DistanceInKilometers" class="mr-5" />
@@ -51,11 +48,8 @@ else
 			<label asp-for="newCarId">Car ID</label>
 			<input type="number" asp-for="newCarId" class="mr-5" />
 
-			<label asp-for="newRide.RideStart">Time start</label>
-			<input type="date" asp-for="newRide.RideStart" class="mr-5" />
-			
-			<label asp-for="newRide.RideEnd">Time end</label>
-			<input type="date" asp-for="newRide.RideEnd" class="mr-5" />
+			<label asp-for="newRide.TimeInHours">Time start</label>
+			<input type="number" asp-for="newRide.TimeInHours" class="mr-5" />
 
 			<label asp-for="newRide.DistanceInKilometers">Distance</label>
 			<input type="number" asp-for="newRide.DistanceInKilometers" class="mr-5" />
@@ -72,8 +66,7 @@ else
 			<th scope="col">Id</th>
 			<th scope="col">User</th>
 			<th scope="col">Car</th>
-			<th scope="col">Ride start</th>
-			<th scope="col">Ride end</th>
+			<th scope="col">Time</th>
 			<th scope="col">Distance</th>
 		</tr>
 	</thead>
@@ -86,8 +79,7 @@ else
 					<td>@ride.Id</td>
 					<td>@ride.User</td>
 					<td>@ride.Car</td>
-					<td>@ride.RideStart</td>
-					<td>@ride.RideEnd</td>
+					<td>@ride.TimeInHours</td>
 					<td>@ride.DistanceInKilometers</td>
 					<td>
 						<form method="post" asp-page-handler="View" asp-route-id="@ride.Id">

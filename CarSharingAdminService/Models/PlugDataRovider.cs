@@ -1,6 +1,6 @@
 ﻿namespace CarSharingAdminService.Models
 {
-    public class PlugDataRovider : IDataProvider
+    public class PlugDataRovider 
     {
         private static int _carID = 3;
         private static int _userID = 3;
@@ -56,8 +56,7 @@
                     User=Users[0],
                     Car=Cars[1],
                     DistanceInKilometers=20,
-                    RideStart= new DateTime(2022, 8, 26, 23, 13, 50),
-                    RideEnd= new DateTime(2022, 8, 27, 1, 13, 50)
+                    TimeInHours=2
                 },
                 new Ride()
                 {
@@ -65,12 +64,11 @@
                     User=Users[1],
                     Car=Cars[1],
                     DistanceInKilometers=20,
-                    RideStart= new DateTime(2022, 8, 26, 23, 13, 50),
-                    RideEnd= new DateTime(2022, 8, 27, 1, 13, 50)
+                    TimeInHours=2
                 },
             };
         public PlugDataRovider(){}
-        public void CreateCar(Car car) {
+        public async Task CreateCar(Car car) {
             car.Id = _carID++;
             Cars.Add(car);
         }
@@ -83,19 +81,19 @@
             return Cars.First(obj => obj.Id == id);
         }
 
-        public void UpdateCar(Car car){
+        public async Task UpdateCar(Car car){
             var Car = GetCar(car.Id);
             Car.Brand = car.Brand;
             Car.Model = car.Model;
             Car.OdometerInKilometers = car.OdometerInKilometers;
         }
 
-        public void DeleteCar(int id){
+        public async Task DeleteCar(int id){
             Cars.Remove(GetCar(id));
         }
 
         //Users CRUD
-        public void CreateUser(User user){
+        public async Task CreateUser(User user){
             user.Id = _userID++;
             Users.Add(user);
         }
@@ -108,19 +106,19 @@
             return Users.First(obj => obj.Id == id);
         }
 
-        public void UpdateUser(User user){
+        public async Task UpdateUser(User user){
             var User = GetUser(user.Id);
             User.UserName = user.UserName;
             User.DateOfBirth = user.DateOfBirth;
             User.DrivingExperienceInYears = user.DrivingExperienceInYears;
         }
 
-        public void DeleteUser(int id){
+        public async Task DeleteUser(int id){
             Users.Remove(GetUser(id));
         }
 
         //Rides CRUD
-        public void CreateRide(Ride ride){
+        public async Task CreateRide(Ride ride){
             ride.Id = _rideID++;
             Rides.Add(ride);
         }
@@ -133,16 +131,15 @@
             return Rides.First(obj => obj.Id == id);
         }
 
-        public void UpdateRide(Ride ride){
+        public async Task UpdateRide(Ride ride){
             var Ride = GetRide(ride.Id);
-            Ride.RideStart = ride.RideStart;
+            Ride.TimeInHours = ride.TimeInHours;
             Ride.Car = ride.Car;
-            Ride.RideEnd = ride.RideEnd;
             Ride.User = ride.User;
             Ride.DistanceInKilometers = ride.DistanceInKilometers;
         }
 
-        public void DeleteRide(int id){
+        public async Task DeleteRide(int id){
             Rides.Remove(GetRide(id));
         }
     }

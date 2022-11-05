@@ -6,7 +6,7 @@ namespace CarSharingAdminService.Pages
 {
     public class CarSharingAdminRidesModel : PageModel
     {
-        private static IDataProvider dataProvider = new PlugDataRovider();
+        private static IDataProvider dataProvider = new MSSQLDataProvider();
         public List<Ride>? rides = null;
         [BindProperty]
         public Ride? newRide { get; set; } = new();
@@ -18,7 +18,7 @@ namespace CarSharingAdminService.Pages
         {
             newRide = null;
             newCarId = null;
-            rides = dataProvider.GetAllRides();
+            rides = dataProvider.GetAllRidesAsync().Result;
 
         }
         public IActionResult OnPost()
@@ -28,21 +28,21 @@ namespace CarSharingAdminService.Pages
                 return Page();
             }*/
             if (newRide != null) {
-                newRide.User = dataProvider.GetAllUsers().First(obj => obj.Id == newUserId);
-                newRide.Car = dataProvider.GetAllCars().First(obj => obj.Id == newCarId);
-                dataProvider.CreateRide(newRide); 
+                newRide.User = dataProvider.GetAllUsersAsync().Result.First(obj => obj.Id == newUserId);
+                newRide.Car = dataProvider.GetAllCarsAsync().Result.First(obj => obj.Id == newCarId);
+                dataProvider.CreateRideAsync(newRide); 
             }
             return RedirectToAction("Get");
         }
         public IActionResult OnPostDelete(int id)
         {
-            dataProvider.DeleteRide(id);
+            dataProvider.DeleteRideAsync(id);
             return RedirectToAction("Get");
         }
         public void OnPostView(int id)
         {
-            rides = dataProvider.GetAllRides();
-            newRide = dataProvider.GetRide(id);
+            rides = dataProvider.GetAllRidesAsync().Result;
+            newRide = dataProvider.GetRideAsync(id).Result;
             newUserId = newRide.User.Id;
             newCarId = newRide.Car.Id;
         }
@@ -53,9 +53,10 @@ namespace CarSharingAdminService.Pages
             {
                 return Page();
             }
-            newRide.User = dataProvider.GetAllUsers().First(obj => obj.Id == newUserId);
-            newRide.Car = dataProvider.GetAllCars().First(obj => obj.Id == newCarId);
-            dataProvider.UpdateRide(newRide);
+            //TO DO
+            newRide.User = dataProvider.GetAllUsersAsync().Result.First(obj => obj.Id == newUserId);
+            newRide.Car = dataProvider.GetAllCarsAsync().Result.First(obj => obj.Id == newCarId);
+            dataProvider.UpdateRideAsync(newRide);
             return RedirectToAction("Get");
         }
     }

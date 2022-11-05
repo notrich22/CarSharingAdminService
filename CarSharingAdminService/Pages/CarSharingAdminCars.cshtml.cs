@@ -6,14 +6,14 @@ namespace CarSharingAdminService.Pages
 {
     public class CarSharingAdminCarsModel : PageModel
     {
-        private static IDataProvider dataProvider = new PlugDataRovider();
+        private static IDataProvider dataProvider = new MSSQLDataProvider();
         public List<Car>? cars = null;
         [BindProperty]
         public Car? newCar { get; set; } = new();
         public void OnGet()
         {
             newCar = null;
-            cars = dataProvider.GetAllCars();
+            cars = dataProvider.GetAllCarsAsync().Result;
         }
         public IActionResult OnPost()
         {
@@ -21,18 +21,18 @@ namespace CarSharingAdminService.Pages
             {
                 return Page();
             }
-            if (newCar != null) dataProvider.CreateCar(newCar);
+            if (newCar != null) dataProvider.CreateCarAsync(newCar);
             return RedirectToAction("Get");
         }
         public IActionResult OnPostDelete(int id)
         {
-            dataProvider.DeleteCar(id);
+            dataProvider.DeleteCarAsync(id);
             return RedirectToAction("Get");
         }
         public void OnPostView(int id)
         {
-            cars = dataProvider.GetAllCars();
-            newCar = dataProvider.GetCar(id);
+            cars = dataProvider.GetAllCarsAsync().Result;
+            newCar = dataProvider.GetCarAsync(id).Result;
         }
 
         public IActionResult OnPostEdit()
@@ -41,7 +41,7 @@ namespace CarSharingAdminService.Pages
             {
                 return Page();
             }
-            dataProvider.UpdateCar(newCar);
+            dataProvider.UpdateCarAsync(newCar);
             return RedirectToAction("Get");
         }
     }
